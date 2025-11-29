@@ -1,0 +1,49 @@
+{
+  "patterns": {
+    "SYSTEM_PROMPT_ATTACK": [
+      "(?i)reveal\\s+(?:your|the)\\s+(?:system\\s+)?prompt",
+      "(?i)show\\s+(?:me|us)\\s+(?:the|your)\\s+(?:hidden|system)\\s+(?:rules|instructions|prompt)",
+      "(?i)print\\s+(?:the|your)\\s+(?:prompt|instructions?|system)"
+    ],
+    "PROMPT_INJECTION": [
+      "(?i)ignore\\s+(?:previous|all|your)\\s+(?:instructions?|prompts?|rules?)",
+      "(?i)ignore\\s+(?:the\\s+)?instructions?",
+      "(?i)disregard\\s+(?:previous|all|system)\\s+(?:instructions?|constraints?)",
+      "(?i)(?:system|assistant)[\\s:]*(?:prompt|message|instruction)",
+      "(?i)you\\s+are\\s+now\\s+(?:a|an|the)\\s+\\w+",
+      "(?i)forget\\s+(?:everything|all|your)\\s+(?:above|previous|instructions?)",
+      "(?i)new\\s+(?:instructions?|task|role|persona)",
+      "(?i)switch\\s+to\\s+\\w+\\s+mode",
+      "(?i)act\\s+as\\s+(?:if|a|an)\\s+\\w+",
+      "(?i)developer\\s+mode",
+      "(?i)jailbreak|bypass|circumvent",
+      "(?i)unrestricted|uncensored|unfiltered"
+    ],
+    "AUTH_BYPASS": [
+      "(?i)(?:admin|root)\\s+(?:access|login|entry)",
+      "(?i)bypass\\s+(?:auth|authentication)",
+      "(?i)without\\s+authentication"
+    ],
+    "CODE_INJECTION": [
+      "(?i)<script",
+      "(?i)eval\\(",
+      "(?i)os\\.system\\(",
+      "(?i)(?:DROP\\s+TABLE|UNION\\s+SELECT)"
+    ],
+    "DATA_EXFILTRATION": [
+      "(?i)(?:show|dump|leak).*(?:database|user\\s*data|credentials?|api\\s*keys?)"
+    ],
+    "TOXIC_CONTENT": [
+      "(?i)(?:how\\s+to|teach\\s+me|instructions?\\s+for)\\s+(?:make|create|build)\\s+(?:bomb|weapon|drug|poison)",
+      "(?i)(?:generate|create|write)\\s+(?:hate\\s+speech|racist|violent|illegal)\\s+content",
+      "(?i)(?:harmful|dangerous|illegal)\\s+(?:advice|instructions?|guide)",
+      "(?i)how\\s+to\\s+hack\\s+(?:a\\s+)?(?:website|account|system)"
+    ]
+  },
+  "high_severity_types": [
+    "SYSTEM_PROMPT_ATTACK",
+    "AUTH_BYPASS",
+    "CODE_INJECTION",
+    "DATA_EXFILTRATION"
+  ]
+}

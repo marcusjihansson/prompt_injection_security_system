@@ -1,0 +1,17 @@
+[project]
+name = "test"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "datasets>=4.4.1",
+    "dspy-ai>=3.0.4",
+    "llm-guard>=0.3.16",
+    "requests>=2.32.5",
+    "spacy>=3.8.11",
+    "structlog>=24.1.0",
+]
+
+[tool.setuptools]
+packages = ["threat_system", "threat_types", "optimizer", "production"]

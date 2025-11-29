@@ -1,0 +1,11 @@
+{
+  "version": "v2",
+  "timestamp": "2025-11-26T02:17:07.174088",
+  "baseline_score": 4000.0,
+  "optimized_score": 4000.0,
+  "improvement": 0.0,
+  "model": "openrouter/meta-llama/llama-guard-4-12b",
+  "training_examples": 40,
+  "validation_examples": 10,
+  "budget": "light"
+}

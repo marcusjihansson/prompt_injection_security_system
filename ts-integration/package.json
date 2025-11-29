@@ -1,0 +1,20 @@
+{
+  "name": "threat-detector-runtime",
+  "version": "1.0.0",
+  "description": "TypeScript runtime for the optimized threat detector",
+  "main": "dist/guard.js",
+  "scripts": {
+    "start": "ts-node demo.ts",
+    "start:advanced": "ts-node advanced_demo.ts",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  }
+}
