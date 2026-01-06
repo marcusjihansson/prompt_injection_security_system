@@ -1,0 +1,3 @@
+module github.com/marcusjohansson/trust-go
+
+go 1.24.5

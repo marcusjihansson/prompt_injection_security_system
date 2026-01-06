@@ -1,17 +1,168 @@
 [project]
-name = "test"
-version = "0.1.0"
-description = "Add your description here"
+name = "threat-detection-system"
+version = "1.0.0"
+description = "Hybrid threat detection system combining regex patterns and DSPy LLM-based detection with multi-layered Chain of Trust security framework"
 readme = "README.md"
+license = {text = "MIT"}
 requires-python = ">=3.11"
 dependencies = [
     "datasets>=4.4.1",
     "dspy-ai>=3.0.4",
+    "fastapi>=0.123.9",
     "llm-guard>=0.3.16",
     "requests>=2.32.5",
+    "sentence-transformers>=5.1.2",
     "spacy>=3.8.11",
     "structlog>=24.1.0",
+    "torch>=2.9.1",
+    "torchaudio>=2.9.1",
+    "torchvision>=0.24.1",
+    "transformers>=4.51.3",
+    "pytest-asyncio>=0.21.0",
+    "onnxruntime>=1.23.2",
+    "optimum>=2.0.0",
+    "optimum-onnx[onnxruntime]>=0.0.3",
+    "valkey>=6.0.0",
+    "httpx>=0.27.0",
+    "slowapi>=0.1.9",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "python-multipart>=0.0.9",
+    "opentelemetry-api>=1.21.0",
+    "opentelemetry-sdk>=1.21.0",
+    "opentelemetry-instrumentation-fastapi>=0.42b0",
+    "opentelemetry-instrumentation-requests>=0.42b0",
+    "opentelemetry-exporter-otlp>=1.21.0",
+    "opentelemetry-exporter-prometheus>=0.42b0",
+    "prometheus-client>=0.19.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "black>=24.0.0",
+    "isort>=5.13.0",
+    "flake8>=7.0.0",
+    "flake8-docstrings>=1.7.0",
+    "flake8-bugbear>=24.0.0",
+    "mypy>=1.8.0",
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.23.0",
+    "pre-commit>=3.6.0",
+    "coverage[toml]>=7.4.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [tool.setuptools]
-packages = ["threat_system", "threat_types", "optimizer", "production"]
+packages = {find = {where = ["src"]}}
+
+[tool.setuptools.package-data]
+trust = ["py.typed"]
+
+# Black configuration
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | threat_detector_optimized
+  | \.ruff_cache
+)/
+'''
+
+# isort configuration
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+skip_gitignore = true
+skip = [".venv", "build", "dist", "threat_detector_optimized", ".ruff_cache"]
+
+# mypy configuration
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_equality = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "dspy.*",
+    "llm_guard.*",
+    "sentence_transformers.*",
+    "transformers.*",
+    "spacy.*",
+]
+ignore_missing_imports = true
+
+# pytest configuration
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=src/trust",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+    "--cov-fail-under=43",
+]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["src/trust"]
+omit = [
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/threat_detector_optimized/*",
+    "*/.venv/*",
+]
+branch = true
+
+[tool.coverage.report]
+precision = 2
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+skip_empty = true
+skip_covered = false
+
+[tool.coverage.html]
+directory = "htmlcov"

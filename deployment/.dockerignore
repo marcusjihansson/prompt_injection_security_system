@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+docs/
+*.md
+!deployment/README.md
+
+# Examples and tests
+examples/
+tests/
+results/
+
+# Build artifacts
+*.log
+*.lock
+
+# Keep only essential files
+!src/
+!main.py
+!pyproject.toml
+!uv.lock
+!threat_detector_optimized/

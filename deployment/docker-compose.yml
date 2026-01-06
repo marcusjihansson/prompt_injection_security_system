@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  dspy-trust:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    container_name: dspy-trust-security
+    ports:
+      - "8000:8000"
+    environment:
+      # Optional: Configure your LLM provider for DSPy
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      
+      # Performance tuning
+      - ONNX_NUM_THREADS=4
+      - OMP_NUM_THREADS=4
+      
+      # Enable optimized detector
+      - USE_OPTIMIZED_DETECTOR=true
+      - ENABLE_REGEX_BASELINE=true
+    
+    volumes:
+      # Optional: Mount GEPA optimization directory for updates
+      - ../threat_detector_optimized:/app/threat_detector_optimized:ro
+      
+      # Optional: Persist model cache
+      - model-cache:/root/.cache/huggingface
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  model-cache:
+    driver: local
